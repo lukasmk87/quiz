@@ -1,0 +1,157 @@
+#set( $a=$!DATA_IN.getChild("Auftragsdaten") )
+#set( $abholung=$a.getChild("Abholung").getTextData() )
+#set( $direktauf=$a.getChild("Direktlieferung").getTextData() )
+#set( $sofortrechnung=$a.getChild("Sofortrechnung").getTextData() )
+#set( $ktr=$a.getChild("Kostentraeger").getTextData() )
+#set( $bestnr=$a.getChild("Bestellnummer").getTextData() )
+#set( $grpnr=$a.getChild("Grpnr").getTextData() )
+#set( $firmnr=$a.getChild("Firmnr").getTextData() )
+#set( $fehler=$a.getChild("Fehlercode").getTextData() )
+#set( $email_an=$a.getChild("EMail_an").getTextData() )
+#set( $budgetfehler=$a.getChild("Budgetfehler").getTextData() )
+#set( $budgetfehlerkst=$a.getChild("BudgetfehlerKst").getTextData() )
+#set( $eingangsart=$a.getChild("Eingangsart").getTextData() )
+#set( $ordner=$a.getChild("Ordner").getTextData() )
+#set( $warenempfaenger=$a.getChild("Warenempfaenger").getTextData() )
+#set( $abteilung=$a.getChild("Abteilung").getTextData() )
+#set( $kostenstelle=$a.getChild("Kostenstelle").getTextData() )
+#set( $kostenstellenbezeichnung=$a.getChild("Kostenstellenbezeichnung").getTextData() )
+#set( $mwst=$a.getChild("Mehrwertsteuer").getTextData() )
+#set( $absendedatum=$a.getChild("Absendedatum").getTextData() )
+#set( $liefertermin=$a.getChild("Lieferdatum").getTextData() )
+#set( $liefertermintyp=$a.getChild("Lieferbedingung").getTextData() )
+#set( $ao=$!DATA_IN.getChild("Auftragsdaten").getChild("ARTIKEL_OPS").getChild("ROW") )
+#set( $mwst=$ao.getChild("mwst").getTextData() )
+#set( $direkt=$ao.getChild("direkt").getTextData() )
+#set( $b=$!DATA_IN.getChild("Auftragsdaten").getChild("Besteller") )
+#set( $bname1=$b.getChild("Name1").getTextData() )
+#set( $btelefon=$b.getChild("Telefon").getTextData() )
+#set( $btelefax=$b.getChild("Telefax").getTextData() )
+#set( $bemail=$b.getChild("email").getTextData() )
+#set( $ko=$!DATA_IN.getChild("Auftragsdaten").getChild("KUNDEN_OPS_1_").getChild("ROW") )
+#set( $knr=$ko.getChild("knr").getTextData() )
+#set( $autoauftrag=$ko.getChild("auto_auftrag").getTextData() )
+#set( $versandpool=$ko.getChild("versandpool").getTextData() )
+#set( $l=$!DATA_IN.getChild("Auftragsdaten").getChild("Lieferadresse") )
+#set( $lnameEins=$l.getChild("Name1").getTextData() )
+#set( $lnameZwei=$l.getChild("Name2").getTextData() )
+#set( $lnameDrei=$l.getChild("Name3").getTextData() )
+#set( $lstrasse=$l.getChild("Strasse").getTextData() )
+#set( $llkz=$l.getChild("LKZ").getTextData() )
+#set( $lplz=$l.getChild("PLZ").getTextData() )
+#set( $lort=$l.getChild("Ort").getTextData() )
+#set( $lvor1=$l.getChild("Liefervorschrift1").getTextData() )
+#set( $lvor2=$l.getChild("Liefervorschrift2").getTextData() )
+#set( $r=$!DATA_IN.getChild("Auftragsdaten").getChild("Rechnungsadresse") )
+#set( $rnamel=$r.getChild("Vorname").getTextData() )
+#set( $rname2=$r.getChild("Name1").getTextData() )
+#set( $rname3=$r.getChild("Name2").getTextData() )
+#set( $rstrasse=$r.getChild("Strasse").getTextData() )
+#set( $rlkz=$r.getChild("LKZ").getTextData() )
+#set( $rplz=$r.getChild("PLZ").getTextData() )
+#set( $rort=$r.getChild("Ort").getTextData() )
+<?xml version = "1.0" encoding = "iso-8859-1"?>
+<!DOCTYPE ORDER SYSTEM "openTRANS_ORDER_1_0.dtd">
+<ORDER version = "1.0" type = "standard">
+	<ORDER_HEADER>
+		<ORDER_INFO>
+			<ORDER_ID>$bestnr</ORDER_ID>
+			<ALT_CUSTOMER_ORDER_ID>$ktr</ALT_CUSTOMER_ORDER_ID>
+			<ORDER_DATE>$absendedatum</ORDER_DATE>
+			<ORDER_PARTIES>
+				<BUYER_PARTY>
+					<PARTY>
+						<PARTY_ID type = "supplier_specific">$knr</PARTY_ID>
+						<ADDRESS>
+							<NAME>$rnamel</NAME>
+							<NAME2>$rname2</NAME2>
+							<NAME3>$rname3</NAME3>
+							<CONTACT>
+								<CONTACT_NAME>$bname1, $bemail</CONTACT_NAME>
+							</CONTACT>
+							<STREET>$rstrasse</STREET>
+							<ZIP>$rplz</ZIP>
+							<CITY>$rort</CITY>
+							<COUNTRY>$rlkz</COUNTRY>
+						</ADDRESS>
+					</PARTY>
+				</BUYER_PARTY>
+				<SUPPLIER_PARTY>
+					<PARTY></PARTY>
+				</SUPPLIER_PARTY>
+				<INVOICE_PARTY>
+					<PARTY></PARTY>
+				</INVOICE_PARTY>
+				<SHIPMENT_PARTIES>
+				<DELIVERY_PARTY>
+					<PARTY>
+						<PARTY_ID type = "buyer_specific"></PARTY_ID>
+						<ADDRESS>
+							<NAME>$lnameEins</NAME>
+							<NAME2>$lnameZwei</NAME2>
+							<NAME3>$lnameDrei</NAME3>
+							<DEPARTMENT></DEPARTMENT>
+							<CONTACT>
+								<CONTACT_NAME>$lnameEins $lnameZwei, $lnameDrei</CONTACT_NAME>
+								<PHONE type="office"></PHONE>
+								<EMAIL></EMAIL>
+							</CONTACT>
+							<STREET>$lstrasse</STREET>
+							<ZIP>$lplz</ZIP>
+							<CITY>$lort</CITY>
+							<COUNTRY>$llkz</COUNTRY>
+						</ADDRESS>
+					</PARTY>
+				</DELIVERY_PARTY>
+				</SHIPMENT_PARTIES>
+			</ORDER_PARTIES>
+			<PRICE_CURRENCY>EUR</PRICE_CURRENCY>
+                        <PARTIAL_SHIPMENT_ALLOWED></PARTIAL_SHIPMENT_ALLOWED>
+ <REMARK type = "order">TEST</REMARK>
+		</ORDER_INFO>
+	</ORDER_HEADER>
+	<ORDER_ITEM_LIST>
+#foreach( $p in $!DATA_IN.getChildren("Auftragsdaten"))
+#set ($burnr = $p.getChild("Burnr").getTextData())
+#set ($farbnr = $p.getChild("Farbnr").getTextData())
+#set ($menge = $p.getChild("Bestellmenge").getTextData())
+#set ($einheit = $p.getChild("Mengeneinheit").getTextData())
+#set ($artnr = $p.getChild("Artikelnummer").getTextData())
+#set ($preis = $p.getChild("Artikelnettopreis").getTextData())
+#set ($ordner = $p.getChild("Ordner").getTextData())
+#set ($artikelzusatz = $p.getChild("Artikelzusatz").getTextData())
+#set ($anrdlief = $p.getChild("Artikelnummer_Lieferant").getTextData())
+#set ($position = $p.getChild("Position").getTextData())
+#set ($fest = $p.getChild("Fest").getTextData())
+#set ($warenempfaenger = $p.getChild("ARTIKEL_OPS").getChild("ROW").getChild("warenempfaenger").getTextData())
+#set ($artbezAlt = $p.getChild("Artikeltext1").getTextData())
+#set ($po=$!DATA_IN.getChild("Auftragsdaten").getChild("ARTIKEL_OPS").getChild("ROW"))
+#set ($artbezEins = $po.getChild("artbez1").getTextData())
+#set ($artbezZwei = $po.getChild("artbez2").getTextData())	
+		<ORDER_ITEM>
+			<LINE_ITEM_ID>$position</LINE_ITEM_ID>
+			<ARTICLE_ID>
+				<SUPPLIER_AID>$artnr</SUPPLIER_AID>
+				<DESCRIPTION_SHORT>$artbezAlt</DESCRIPTION_SHORT>
+			</ARTICLE_ID>
+				<QUANTITY>$menge</QUANTITY>
+			<ORDER_UNIT>$einheit</ORDER_UNIT>
+			<ARTICLE_PRICE type = "net_list">
+				<PRICE_AMOUNT>$preis</PRICE_AMOUNT>
+				<PRICE_LINE_AMOUNT>$preis</PRICE_LINE_AMOUNT>
+				<TAX>$mwst</TAX>
+				<TAX_AMOUNT></TAX_AMOUNT>
+				<PRICE_QUANTITY>$einheit</PRICE_QUANTITY>
+			</ARTICLE_PRICE>
+			<ACCOUNTING_INFO>
+				<COST_CATEGORY_ID type = "cost_center">$kostenstellenbezeichnung</COST_CATEGORY_ID>
+			</ACCOUNTING_INFO>
+			<REMARK type="general">			</REMARK>
+		</ORDER_ITEM>
+#end
+	</ORDER_ITEM_LIST>
+	<ORDER_SUMMARY>
+		<TOTAL_ITEM_NUM></TOTAL_ITEM_NUM>
+		<TOTAL_AMOUNT></TOTAL_AMOUNT>
+	</ORDER_SUMMARY>
+</ORDER>
